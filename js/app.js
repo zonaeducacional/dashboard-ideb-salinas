@@ -4,7 +4,6 @@
 
 window.currentFilters = {
   etapa: "AI",        
-  rede: "todas",      
   escolaId: ""        
 };
 
@@ -28,14 +27,7 @@ function setupEventListeners() {
     });
   }
 
-  const redeSelect = document.getElementById('rede');
-  if (redeSelect) {
-    redeSelect.addEventListener('change', (e) => {
-      window.currentFilters.rede = e.target.value;
-      populateEscolaSelect();
-      updateDashboard();
-    });
-  }
+
 
   const escolaSelect = document.getElementById('escola');
   if (escolaSelect) {
@@ -51,14 +43,9 @@ function populateEscolaSelect() {
   if (!escolaSelect) return;
 
   const etapa = window.currentFilters.etapa;
-  const rede = window.currentFilters.rede;
 
   const escolasFiltradas = IDEB_DATA.escolas.filter(e => {
     if (!e.etapas.includes(etapa)) return false;
-    if (rede !== "todas") {
-      if (rede === "publica" && e.rede !== "municipal" && e.rede !== "estadual") return false;
-      if (rede !== "publica" && e.rede !== rede) return false;
-    }
     return true;
   });
 
