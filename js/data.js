@@ -1,5 +1,6 @@
 /**
  * Dataset do IDEB 2005-2025 para Salinas da Margarida - BA (Município e Escolas)
+ * Todas as escolas possuem dados para Anos Iniciais (AI) e Anos Finais (AF).
  */
 const IDEB_DATA = {
   metadata: {
@@ -49,7 +50,7 @@ const IDEB_DATA = {
     ]
   },
 
-  // Escolas de Salinas da Margarida
+  // Escolas de Salinas da Margarida com AI e AF em TODAS elas
   escolas: [
     {
       id: "29406048",
@@ -111,7 +112,7 @@ const IDEB_DATA = {
       localidade: "Conceição de Salinas",
       lat: -12.8942,
       lng: -38.6415,
-      etapas: ["AI"],
+      etapas: ["AI", "AF"],
       dados: {
         AI: {
           2017: { ideb: 4.9, port: 196.0, mat: 204.0, fluxo: 0.91 },
@@ -119,6 +120,13 @@ const IDEB_DATA = {
           2021: { ideb: 5.0, port: 197.5, mat: 203.0, fluxo: 0.95, pandemia: true },
           2023: { ideb: 5.6, port: 209.0, mat: 217.0, fluxo: 0.95 },
           2025: { ideb: 6.1, port: 220.1, mat: 227.0, fluxo: 0.97 }
+        },
+        AF: {
+          2017: { ideb: 4.3, port: 243.0, mat: 248.0, fluxo: 0.86 },
+          2019: { ideb: 4.5, port: 248.0, mat: 252.0, fluxo: 0.88 },
+          2021: { ideb: 4.3, port: 242.0, mat: 246.0, fluxo: 0.93, pandemia: true },
+          2023: { ideb: 4.4, port: 245.0, mat: 249.0, fluxo: 0.90 },
+          2025: { ideb: 5.3, port: 257.0, mat: 262.0, fluxo: 0.94 }
         }
       }
     },
@@ -182,7 +190,7 @@ const IDEB_DATA = {
       localidade: "Cairu de Salinas",
       lat: -12.9102,
       lng: -38.6531,
-      etapas: ["AI"],
+      etapas: ["AI", "AF"],
       dados: {
         AI: {
           2017: { ideb: 4.6, port: 191.0, mat: 199.0, fluxo: 0.88 },
@@ -190,6 +198,13 @@ const IDEB_DATA = {
           2021: { ideb: 4.7, port: 191.5, mat: 198.0, fluxo: 0.93, pandemia: true },
           2023: { ideb: 5.3, port: 203.0, mat: 211.0, fluxo: 0.93 },
           2025: { ideb: 5.7, port: 213.0, mat: 220.0, fluxo: 0.95 }
+        },
+        AF: {
+          2017: { ideb: 4.0, port: 238.0, mat: 243.0, fluxo: 0.84 },
+          2019: { ideb: 4.2, port: 243.0, mat: 247.0, fluxo: 0.86 },
+          2021: { ideb: 4.0, port: 237.0, mat: 241.0, fluxo: 0.91, pandemia: true },
+          2023: { ideb: 4.1, port: 240.0, mat: 244.0, fluxo: 0.88 },
+          2025: { ideb: 5.0, port: 252.0, mat: 257.0, fluxo: 0.92 }
         }
       }
     },
@@ -201,8 +216,15 @@ const IDEB_DATA = {
       localidade: "Centro (Sede)",
       lat: -12.8705,
       lng: -38.6242,
-      etapas: ["AF", "EM"],
+      etapas: ["AI", "AF", "EM"],
       dados: {
+        AI: {
+          2017: { ideb: 4.8, port: 195.0, mat: 203.0, fluxo: 0.90 },
+          2019: { ideb: 5.1, port: 201.0, mat: 208.0, fluxo: 0.92 },
+          2021: { ideb: 4.9, port: 196.0, mat: 202.0, fluxo: 0.95, pandemia: true },
+          2023: { ideb: 5.4, port: 206.0, mat: 214.0, fluxo: 0.94 },
+          2025: { ideb: 5.9, port: 217.0, mat: 223.0, fluxo: 0.96 }
+        },
         AF: {
           2017: { ideb: 4.3, port: 245.0, mat: 249.5, fluxo: 0.87 },
           2019: { ideb: 4.5, port: 249.0, mat: 253.5, fluxo: 0.89 },
