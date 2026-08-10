@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IDEB 2025 — Salinas da Margarida (BA)</title>
+  <title>Proficiência SAEB — Salinas da Margarida</title>
   
-  <!-- SEO Meta Tags -->
-  <meta name="description" content="Dashboard interativo do IDEB 2025 de Salinas da Margarida (BA). Resultados do município, notas do Saeb, fluxo e séries históricas por escola." />
+  <meta name="description" content="Dashboard de Proficiência SAEB (2005-2025) de Salinas da Margarida (BA). Resultados do município e escolas." />
   
   <!-- Google Fonts: Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,9 +14,6 @@
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <!-- Leaflet Map CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
   <!-- Custom Dashboard CSS -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -28,53 +24,28 @@
   <header class="main-header">
     <div class="brand-wrapper">
       <div class="brand-logo">
-        <i class="fas fa-graduation-cap"></i>
+        <i class="fas fa-book-open"></i>
       </div>
       <div class="brand-title">
-        <h1>IDEB em Mapa — Salinas da Margarida</h1>
-        <p>Qualidade da Educação Básica Municipal, de 2005 a 2025</p>
-      </div>
-    </div>
-
-    <div class="header-meta">
-      <div class="meta-box">
-        <span class="meta-label">Fonte</span>
-        <span class="meta-value">INEP / MEC</span>
-      </div>
-      <div class="meta-box">
-        <span class="meta-label">Edição</span>
-        <span class="meta-value">IDEB 2025</span>
-      </div>
-      <div class="meta-box">
-        <span class="meta-label">Município</span>
-        <span class="meta-value">Salinas da Margarida - BA</span>
+        <h1>Proficiência Escolar — Salinas da Margarida</h1>
+        <p>Análise de Aprendizagem (Língua Portuguesa e Matemática)</p>
       </div>
     </div>
   </header>
 
-  <!-- Layout Principal (Sidebar + Conteudo) -->
   <div class="layout-body">
-
     <!-- Barra Lateral de Filtros -->
     <aside class="sidebar">
-      <p class="sidebar-title">Recorte</p>
+      <p class="sidebar-title">Recorte de Nível</p>
       
-      <!-- Filtro 1: Etapa de Ensino -->
       <div class="filter-group">
-        <label class="filter-label">Etapa de ensino</label>
-        <div class="radio-pill-group">
-          <input type="radio" id="etapa_ai" name="etapa" value="AI" checked />
-          <label for="etapa_ai">Anos Iniciais (1º-5º)</label>
-          
-          <input type="radio" id="etapa_af" name="etapa" value="AF" />
-          <label for="etapa_af">Anos Finais (6º-9º)</label>
-          
-          <input type="radio" id="etapa_em" name="etapa" value="EM" />
-          <label for="etapa_em">Ensino Médio</label>
-        </div>
+        <label class="filter-label" for="etapa">Etapa de ensino</label>
+        <select id="etapa" class="form-select">
+          <option value="AI" selected>Anos Iniciais (1º ao 5º)</option>
+          <option value="AF">Anos Finais (6º ao 9º)</option>
+        </select>
       </div>
 
-      <!-- Filtro 2: Rede de Ensino -->
       <div class="filter-group">
         <label class="filter-label" for="rede">Rede de ensino</label>
         <select id="rede" class="form-select">
@@ -85,158 +56,69 @@
         </select>
       </div>
 
-      <p class="sidebar-title">Localização & Escola</p>
-      
-      <!-- Filtro 3: Escola -->
+      <p class="sidebar-title">Seleção de Escola</p>
       <div class="filter-group">
-        <label class="filter-label" for="escola">Escola</label>
+        <label class="filter-label" for="escola">Comparar com Escola</label>
         <select id="escola" class="form-select">
-          <option value="">Todas as escolas</option>
+          <option value="">Selecione uma escola...</option>
         </select>
-      </div>
-
-      <!-- Açoes da Barra Lateral -->
-      <div class="sidebar-actions">
-        <button id="limpar" class="btn-sidebar btn-sidebar-secondary" type="button">
-          <i class="fas fa-rotate-left"></i> Limpar seleção
-        </button>
-        <a id="baixar_lista" class="btn-sidebar btn-sidebar-primary" href="#">
-          <i class="fas fa-download"></i> Lista em CSV
-        </a>
-        <a id="baixar_serie" class="btn-sidebar btn-sidebar-secondary" href="#">
-          <i class="fas fa-file-csv"></i> Série histórica em CSV
-        </a>
-      </div>
-
-      <div class="sidebar-info-box">
-        O IDEB combina <b>aprendizado</b> (nota do Saeb) e <b>fluxo</b> (aprovação) em uma escala de 0 a 10.
-        <br/><br/>
-        Clique nos marcadores do mapa para ver os dados de cada unidade escolar em Salinas da Margarida.
       </div>
     </aside>
 
     <!-- Área Principal de Conteúdo -->
     <main class="main-content">
       
-      <!-- Breadcrumb Bar -->
-      <div id="trilha"></div>
-
-      <!-- Painel Superior: Mapa + Cards KPIs -->
-      <div class="dashboard-top-panel">
+      <div class="views-grid">
         
-        <!-- Cartão do Mapa -->
-        <div class="map-card">
-          <div class="map-card-header">
-            <div>
-              <h3 id="titulo_mapa">Salinas da Margarida — Anos Iniciais</h3>
-              <p id="sub_mapa">Censo Escolar 2025 • Todas as Redes</p>
-            </div>
-            <span class="badge badge-municipal">BAÍAS E RECÔNCAVO</span>
+        <!-- VISÃO DO MUNICÍPIO -->
+        <div class="view-section">
+          <div class="section-header">
+            <h2 class="section-title">Visão do Município</h2>
+            <p class="section-subtitle">Consolidado da Rede em Salinas da Margarida</p>
           </div>
-          <div id="mapa"></div>
+          
+          <div class="kpi-grid" id="kpis-municipio">
+            <!-- Rendered by JS -->
+          </div>
+
+          <div class="chart-container">
+            <canvas id="grafico_municipio"></canvas>
+          </div>
+
+          <h3 style="color: var(--color-purple); margin-bottom: 1rem;">Série Histórica (Município)</h3>
+          <div id="tabela-municipio">
+            <!-- Rendered by JS -->
+          </div>
         </div>
 
-        <!-- Painel Lateral de KPIs -->
-        <div class="kpis-side-panel" id="kpis">
-          <!-- Renderizado via JS -->
+        <!-- VISÃO DA ESCOLA -->
+        <div class="view-section" id="view-escola">
+          <!-- Rendered by JS if school is selected -->
+          <div style="text-align: center; padding: 3rem 1rem; color: var(--color-burgundy);">
+            <i class="fas fa-school" style="font-size: 3rem; margin-bottom: 1rem; color: var(--color-teal);"></i>
+            <h3>Nenhuma escola selecionada</h3>
+            <p>Selecione uma escola no menu lateral para visualizar os dados detalhados e comparar com a rede.</p>
+          </div>
         </div>
+
       </div>
 
-      <!-- Seção Inferior com Abas -->
-      <div class="content-tabs-card">
-        <div class="tabs-header">
-          <ul class="nav-tabs" id="abas">
-            <li><a href="#tab-serie" class="active" data-bs-toggle="tab">Série histórica</a></li>
-            <li><a href="#tab-ranking" data-bs-toggle="tab">Lista e ranking</a></li>
-            <li><a href="#tab-dados" data-bs-toggle="tab">Tabela de dados</a></li>
-            <li><a href="#tab-analise" data-bs-toggle="tab">Análise de Aprendizagem</a></li>
-            <li><a href="#tab-como-ler" data-bs-toggle="tab">Como ler o IDEB</a></li>
-          </ul>
-        </div>
-
-        <div class="tab-content">
-          
-          <!-- Aba 1: Série Histórica -->
-          <div class="tab-pane active" id="tab-serie">
-            <div id="ficha_escola"></div>
-            <div class="chart-container">
-              <canvas id="grafico_canvas"></canvas>
-            </div>
-          </div>
-
-          <!-- Aba 2: Lista e Ranking -->
-          <div class="tab-pane" id="tab-ranking">
-            <div id="tabela"></div>
-          </div>
-
-          <!-- Aba 3: Tabela de Dados Completa -->
-          <div class="tab-pane" id="tab-dados">
-            <div id="tabela_serie"></div>
-          </div>
-
-          <!-- Aba Analise -->
-          <div class="tab-pane" id="tab-analise">
-            <div class="texto-explicativo">
-              <h4>A Ilusão do IDEB vs. A Realidade da Proficiência</h4>
-              <p>O <b>IDEB</b> é um indicador útil, mas que pode mascarar graves problemas de aprendizagem. Como ele é calculado pela multiplicação da <b>Proficiência (SAEB)</b> pela <b>Taxa de Aprovação</b>, muitas redes de ensino utilizam o <i>truque da aprovação generalizada</i> (aprovação automática) para inflar artificialmente o IDEB, mesmo que os alunos não estejam aprendendo o básico.</p>
-              
-              <div style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 4px; margin: 1.5rem 0;">
-                <p style="margin: 0;"><b>Por que olhar para as notas do SAEB?</b></p>
-                <p style="margin: 0.5rem 0 0 0;">As notas de <b>Matemática e Língua Portuguesa</b> refletem o que o aluno efetivamente aprendeu. Analisando as linhas do gráfico, podemos ver a verdadeira trajetória pedagógica da escola, isolando o impacto das políticas de aprovação.</p>
-              </div>
-
-              <h4>Analisando a Série Histórica de Salinas da Margarida</h4>
-              <p>Ao observar os gráficos duplos de proficiência ao longo dos anos, é possível diagnosticar se a rede está focando na aprendizagem real. Quedas nas linhas de proficiência associadas a aumentos no IDEB são um alerta vermelho clássico de aprovação em massa sem garantia de qualidade.</p>
-            </div>
-          </div>
-
-          <!-- Aba 4: Como ler o IDEB -->
-          <div class="tab-pane" id="tab-como-ler">
-            <div class="texto-explicativo">
-              <h4>O que é o IDEB</h4>
-              <p>O <b>Índice de Desenvolvimento da Educação Básica</b> foi criado pelo INEP em 2007 para medir a qualidade da educação em uma única nota de <b>0 a 10</b>. Ele resulta da multiplicação de dois componentes:</p>
-              <p><code>IDEB = N × P</code></p>
-              <ul>
-                <li><b>N — aprendizado:</b> a nota média dos estudantes no Saeb em Língua Portuguesa e Matemática, convertida para a escala de 0 a 10.</li>
-                <li><b>P — fluxo:</b> o indicador de rendimento, calculado a partir das taxas de aprovação. Vale entre 0 e 1.</li>
-              </ul>
-
-              <h4>Etapas avaliadas</h4>
-              <ul>
-                <li><b>Anos Iniciais</b> — 1º ao 5º ano do ensino fundamental (avaliação realizada no 5º ano).</li>
-                <li><b>Anos Finais</b> — 6º ao 9º ano do ensino fundamental (avaliação realizada no 9º ano).</li>
-                <li><b>Ensino Médio</b> — avaliado no 3º ano do ensino médio.</li>
-              </ul>
-
-              <h4>Cuidados na leitura</h4>
-              <ul>
-                <li>A edição de <b>2021</b> ocorreu durante a pandemia de Covid-19, com aulas remotas e regras excepcionais de aprovação. Por isso ela aparece destacada na série histórica.</li>
-                <li>As <b>metas</b> mostradas foram as projetadas no 1º ciclo do IDEB até 2021.</li>
-                <li>O IDEB de Salinas da Margarida em 2025 registrou importante evolução, atingindo <b>6,0 nos Anos Iniciais</b> e <b>5,3 nos Anos Finais</b>.</li>
-              </ul>
-
-              <h4>As cores do mapa</h4>
-              <p>Os marcadores no mapa variam do <b>vermelho</b> (notas mais baixas) ao <b>azul/verde</b> (notas mais altas). A escala compara o desempenho com as médias de referência da etapa de ensino.</p>
-            </div>
-          </div>
-
+      <div class="texto-explicativo">
+        <h4>A Ilusão do IDEB vs. A Realidade da Proficiência</h4>
+        <p>O <b>IDEB</b> é um indicador útil, mas que pode mascarar graves problemas de aprendizagem. Como ele é calculado pela multiplicação da <b>Proficiência (SAEB)</b> pela <b>Taxa de Aprovação</b>, muitas redes de ensino utilizam o <i>truque da aprovação generalizada</i> (aprovação automática) para inflar artificialmente o IDEB, mesmo que os alunos não estejam aprendendo o básico.</p>
+        
+        <div style="background-color: rgba(107, 151, 149, 0.1); border-left: 4px solid var(--color-teal); padding: 1rem; border-radius: 4px; margin: 1.5rem 0;">
+          <p style="margin: 0; color: var(--color-purple);"><b>Por que olhar para as notas do SAEB?</b></p>
+          <p style="margin: 0.5rem 0 0 0; color: var(--color-burgundy);">As notas de <b>Matemática e Língua Portuguesa</b> refletem o que o aluno efetivamente aprendeu. Analisando as linhas do gráfico, podemos ver a verdadeira trajetória pedagógica, isolando o impacto das políticas de aprovação automática.</p>
         </div>
       </div>
 
     </main>
   </div>
 
-  <!-- Rodapé -->
-  <footer class="app-footer">
-    <div>Dados públicos do <b>INEP/MEC</b>. Dashboard construído para o município de <b>Salinas da Margarida (BA)</b>.</div>
-    <div>Última edição disponível: <b>IDEB 2025</b></div>
-  </footer>
-
   <!-- Scripts -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="js/data.js"></script>
-  <script src="js/map.js"></script>
   <script src="js/charts.js"></script>
   <script src="js/app.js"></script>
 </body>
