@@ -1018,3 +1018,52 @@ const IDEB_DATA = {
     }
 ]
 };
+
+// Lógica de Classificação do SAEB
+function getSaebClassification(score, subject, stage) {
+    if (score === null || score === undefined || score === '-') return { nivel: '-', sintese: 'Sem dados' };
+    score = parseFloat(score);
+
+    if (stage === 'AI') { // 5º Ano
+        if (subject === 'port') {
+            if (score < 125) return { nivel: 'Nível 1', sintese: 'Habilidades incipientes de leitura. Dificuldade em informações explícitas.' };
+            if (score < 150) return { nivel: 'Nível 2', sintese: 'Localiza informações explícitas em textos curtos.' };
+            if (score < 175) return { nivel: 'Nível 3', sintese: 'Identifica o tema de um texto e reconhece finalidade.' };
+            if (score < 200) return { nivel: 'Nível 4', sintese: 'Infere informações simples e reconhece relação de causa e consequência.' };
+            if (score < 225) return { nivel: 'Nível 5', sintese: 'NÍVEL ADEQUADO: Reconhece sentido de palavras pelo contexto e efeitos de humor.' };
+            if (score < 250) return { nivel: 'Nível 6', sintese: 'Diferencia fato de opinião e infere assunto em textos longos.' };
+            if (score < 275) return { nivel: 'Nível 7', sintese: 'Identifica efeitos de sentido de pontuação e recursos expressivos.' };
+            if (score < 300) return { nivel: 'Nível 8', sintese: 'Reconhece o conflito gerador e múltiplas relações lógico-discursivas.' };
+            return { nivel: 'Nível 9', sintese: 'Domínio avançado de inferência e leitura crítica.' };
+        } else { // mat
+            if (score < 150) return { nivel: 'Nível 1', sintese: 'Lê horas em relógio digital e reconhece figuras planas simples.' };
+            if (score < 175) return { nivel: 'Nível 2', sintese: 'Resolve problemas simples de adição/subtração.' };
+            if (score < 200) return { nivel: 'Nível 3', sintese: 'Reconhece planificações e resolve problemas com sistema monetário.' };
+            if (score < 225) return { nivel: 'Nível 4', sintese: 'Lê gráficos de colunas e resolve multiplicação simples.' };
+            if (score < 250) return { nivel: 'Nível 5', sintese: 'NÍVEL ADEQUADO: Resolve problemas com 4 operações e frações simples.' };
+            if (score < 275) return { nivel: 'Nível 6', sintese: 'Calcula área/perímetro em malha e frações equivalentes.' };
+            if (score < 300) return { nivel: 'Nível 7', sintese: 'Lida com números decimais e probabilidade simples.' };
+            return { nivel: 'Nível 8+', sintese: 'Domínio avançado de espaço, forma e cálculos complexos.' };
+        }
+    } else { // 9º Ano (AF)
+        if (subject === 'port') {
+            if (score < 200) return { nivel: 'Nível 1', sintese: 'Localiza informações muito evidentes no texto.' };
+            if (score < 225) return { nivel: 'Nível 2', sintese: 'Identifica assunto principal em textos simples.' };
+            if (score < 250) return { nivel: 'Nível 3', sintese: 'Reconhece relações de causa/efeito e finalidade.' };
+            if (score < 275) return { nivel: 'Nível 4', sintese: 'Infere informações implícitas e tese do autor.' };
+            if (score < 300) return { nivel: 'Nível 5', sintese: 'NÍVEL ADEQUADO: Reconhece ironia, humor e efeitos de pontuação.' };
+            if (score < 325) return { nivel: 'Nível 6', sintese: 'Diferencia tese de argumentos e fato de opinião.' };
+            if (score < 350) return { nivel: 'Nível 7', sintese: 'Identifica ambiguidades e compara textos sobre mesmo tema.' };
+            return { nivel: 'Nível 8+', sintese: 'Análise profunda, reconhecendo posições ideológicas.' };
+        } else { // mat
+            if (score < 225) return { nivel: 'Nível 1', sintese: 'Resolve operações muito básicas com naturais.' };
+            if (score < 250) return { nivel: 'Nível 2', sintese: 'Lê dados em gráficos simples e resolve problemas de adição/subtração.' };
+            if (score < 275) return { nivel: 'Nível 3', sintese: 'Identifica frações equivalentes e planificações básicas.' };
+            if (score < 300) return { nivel: 'Nível 4', sintese: 'Resolve problemas com percentuais simples (50%, 25%).' };
+            if (score < 325) return { nivel: 'Nível 5', sintese: 'NÍVEL ADEQUADO: Calcula área de polígonos e equações de 1º grau simples.' };
+            if (score < 350) return { nivel: 'Nível 6', sintese: 'Aplica Teorema de Pitágoras e proporcionalidade complexa.' };
+            if (score < 375) return { nivel: 'Nível 7', sintese: 'Resolve sistemas de equações e probabilidade com frações.' };
+            return { nivel: 'Nível 8+', sintese: 'Domina equações de 2º grau e funções trigonométricas.' };
+        }
+    }
+}

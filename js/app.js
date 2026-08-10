@@ -112,15 +112,23 @@ function renderMunicipioView() {
   // 2. Render Tabela Município
   const tableContainer = document.getElementById("tabela-municipio");
   if (tableContainer) {
-    let rowsHtml = [...serieMun].sort((a,b) => b.ano - a.ano).map(r => `
-      <tr>
-        <td><b>${r.ano}</b></td>
-        <td style="color: var(--color-burgundy); font-weight: bold;">${r.port ? r.port.toFixed(1) : '-'}</td>
-        <td style="color: var(--color-teal); font-weight: bold;">${r.mat ? r.mat.toFixed(1) : '-'}</td>
-        <td>${r.ideb ? r.ideb.toFixed(1) : '-'}</td>
-        <td>${r.fluxo ? (r.fluxo * 100).toFixed(0) + '%' : '-'}</td>
-      </tr>
-    `).join('');
+    let rowsHtml = [...serieMun].sort((a,b) => b.ano - a.ano).map(r => {
+      const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-', sintese: '-' };
+      const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-', sintese: '-' };
+      return `
+        <tr>
+          <td><b>${r.ano}</b></td>
+          <td style="color: var(--color-burgundy); font-weight: bold;">${r.port ? r.port.toFixed(1) : '-'}</td>
+          <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classPort.nivel}</td>
+          <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classPort.sintese}</td>
+          <td style="color: var(--color-teal); font-weight: bold;">${r.mat ? r.mat.toFixed(1) : '-'}</td>
+          <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classMat.nivel}</td>
+          <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classMat.sintese}</td>
+          <td>${r.ideb ? r.ideb.toFixed(1) : '-'}</td>
+          <td>${r.fluxo ? (r.fluxo * 100).toFixed(0) + '%' : '-'}</td>
+        </tr>
+      `;
+    }).join('');
 
     tableContainer.innerHTML = `
       <div class="table-responsive">
@@ -174,15 +182,22 @@ function renderEscolaView() {
   let portStr = latest && latest.port ? latest.port.toFixed(1) : '-';
   let matStr = latest && latest.mat ? latest.mat.toFixed(1) : '-';
 
-  let rowsHtml = [...serieEsc].sort((a,b) => b.ano - a.ano).map(r => `
+  let rowsHtml = [...serieEsc].sort((a,b) => b.ano - a.ano).map(r => {
+    const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-', sintese: '-' };
+    const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-', sintese: '-' };
+    return `
     <tr>
       <td><b>${r.ano}</b></td>
       <td style="color: var(--color-burgundy); font-weight: bold;">${r.port ? r.port.toFixed(1) : '-'}</td>
+      <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classPort.nivel}</td>
+      <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classPort.sintese}</td>
       <td style="color: var(--color-teal); font-weight: bold;">${r.mat ? r.mat.toFixed(1) : '-'}</td>
+      <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classMat.nivel}</td>
+      <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classMat.sintese}</td>
       <td>${r.ideb ? r.ideb.toFixed(1) : '-'}</td>
       <td>${r.fluxo ? (r.fluxo * 100).toFixed(0) + '%' : '-'}</td>
     </tr>
-  `).join('');
+  `}).join('');
 
   container.innerHTML = `
     <div class="section-header">
@@ -212,7 +227,11 @@ function renderEscolaView() {
           <tr>
             <th>Ano</th>
             <th>Português (SAEB)</th>
+            <th>Nível Port.</th>
+            <th>Síntese Port.</th>
             <th>Matemática (SAEB)</th>
+            <th>Nível Mat.</th>
+            <th>Síntese Mat.</th>
             <th>IDEB</th>
             <th>Aprovação</th>
           </tr>
