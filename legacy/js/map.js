@@ -12,12 +12,12 @@ function getIdebColor(score, etapa = "AI") {
   if (etapa === "AF") { min = 2.5; mid = 4.5; max = 6.5; }
   if (etapa === "EM") { min = 2.0; mid = 4.0; max = 6.0; }
 
-  if (score >= max) return "#3b82f6"; // Azul brilhante (Acima da média/excelente)
-  if (score >= mid + 0.5) return "#06b6d4"; // Ciano
-  if (score >= mid) return "#10b981"; // Verde esmeralda
-  if (score >= min + 1.0) return "#f59e0b"; // Amarelo
-  if (score >= min) return "#f97316"; // Laranja
-  return "#ef4444"; // Vermelho (Abaixo da média)
+  if (score >= max) return "#38bdf8"; // Light Neon Blue
+  if (score >= mid + 0.5) return "#2dd4bf"; // Teal Neon
+  if (score >= mid) return "#34d399"; // Emerald Neon
+  if (score >= min + 1.0) return "#fbbf24"; // Amber Neon
+  if (score >= min) return "#fb923c"; // Orange Neon
+  return "#f43f5e"; // Rose Neon
 }
 
 function initMap() {

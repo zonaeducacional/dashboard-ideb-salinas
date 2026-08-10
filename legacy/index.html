@@ -8,10 +8,10 @@
   <!-- SEO Meta Tags -->
   <meta name="description" content="Dashboard interativo do IDEB 2025 de Salinas da Margarida (BA). Resultados do município, notas do Saeb, fluxo e séries históricas por escola." />
   
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
@@ -149,6 +149,7 @@
             <li><a href="#tab-serie" class="active" data-bs-toggle="tab">Série histórica</a></li>
             <li><a href="#tab-ranking" data-bs-toggle="tab">Lista e ranking</a></li>
             <li><a href="#tab-dados" data-bs-toggle="tab">Tabela de dados</a></li>
+            <li><a href="#tab-analise" data-bs-toggle="tab">Análise de Aprendizagem</a></li>
             <li><a href="#tab-como-ler" data-bs-toggle="tab">Como ler o IDEB</a></li>
           </ul>
         </div>
@@ -171,6 +172,22 @@
           <!-- Aba 3: Tabela de Dados Completa -->
           <div class="tab-pane" id="tab-dados">
             <div id="tabela_serie"></div>
+          </div>
+
+          <!-- Aba Analise -->
+          <div class="tab-pane" id="tab-analise">
+            <div class="texto-explicativo">
+              <h4>A Ilusão do IDEB vs. A Realidade da Proficiência</h4>
+              <p>O <b>IDEB</b> é um indicador útil, mas que pode mascarar graves problemas de aprendizagem. Como ele é calculado pela multiplicação da <b>Proficiência (SAEB)</b> pela <b>Taxa de Aprovação</b>, muitas redes de ensino utilizam o <i>truque da aprovação generalizada</i> (aprovação automática) para inflar artificialmente o IDEB, mesmo que os alunos não estejam aprendendo o básico.</p>
+              
+              <div style="background-color: rgba(59, 130, 246, 0.1); border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 4px; margin: 1.5rem 0;">
+                <p style="margin: 0;"><b>Por que olhar para as notas do SAEB?</b></p>
+                <p style="margin: 0.5rem 0 0 0;">As notas de <b>Matemática e Língua Portuguesa</b> refletem o que o aluno efetivamente aprendeu. Analisando as linhas do gráfico, podemos ver a verdadeira trajetória pedagógica da escola, isolando o impacto das políticas de aprovação.</p>
+              </div>
+
+              <h4>Analisando a Série Histórica de Salinas da Margarida</h4>
+              <p>Ao observar os gráficos duplos de proficiência ao longo dos anos, é possível diagnosticar se a rede está focando na aprendizagem real. Quedas nas linhas de proficiência associadas a aumentos no IDEB são um alerta vermelho clássico de aprovação em massa sem garantia de qualidade.</p>
+            </div>
           </div>
 
           <!-- Aba 4: Como ler o IDEB -->

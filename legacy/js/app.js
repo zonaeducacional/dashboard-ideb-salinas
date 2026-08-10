@@ -243,41 +243,37 @@ function renderKPIs() {
     variacaoHtml = `<span class="trend-badge ${colorClass}"><i class="fas ${icon}"></i> ${sign}${diff.toFixed(1)} vs 2023</span>`;
   }
 
-  const colorStyle = getIdebColor(ideb2025, etapa);
-
   kpisContainer.innerHTML = `
     <div class="kpi-grid">
-      <div class="kpi-card main-kpi" style="border-left-color: ${colorStyle}">
-        <div class="kpi-label">IDEB 2025</div>
+      <div class="kpi-card main-kpi" style="border-left-color: #3b82f6">
+        <div class="kpi-label">Língua Portuguesa (Saeb 2025)</div>
         <div class="kpi-value-row">
-          <span class="kpi-value" style="color: ${colorStyle}">${ideb2025 !== null ? ideb2025.toFixed(1) : '-'}</span>
-          ${variacaoHtml}
+          <span class="kpi-value" style="color: #3b82f6">${port2025 !== null ? port2025.toFixed(1) : '-'}</span>
+        </div>
+        <div class="kpi-subtext">${labelEntidade}</div>
+      </div>
+
+      <div class="kpi-card main-kpi" style="border-left-color: #10b981">
+        <div class="kpi-label">Matemática (Saeb 2025)</div>
+        <div class="kpi-value-row">
+          <span class="kpi-value" style="color: #10b981">${mat2025 !== null ? mat2025.toFixed(1) : '-'}</span>
         </div>
         <div class="kpi-subtext">${labelEntidade}</div>
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-label">Aprendizado (Saeb 2025)</div>
+        <div class="kpi-label">IDEB vs Aprovação</div>
         <div class="kpi-dual-metrics">
           <div class="sub-metric">
-            <span class="lbl"><i class="fas fa-book text-blue"></i> Português</span>
-            <span class="val">${port2025 !== null ? port2025.toFixed(1) : '-'}</span>
+            <span class="lbl"><i class="fas fa-star text-yellow"></i> IDEB</span>
+            <span class="val">${ideb2025 !== null ? ideb2025.toFixed(1) : '-'}</span>
           </div>
           <div class="sub-metric">
-            <span class="lbl"><i class="fas fa-calculator text-emerald"></i> Matemática</span>
-            <span class="val">${mat2025 !== null ? mat2025.toFixed(1) : '-'}</span>
+            <span class="lbl"><i class="fas fa-check text-emerald"></i> Aprovação</span>
+            <span class="val">${fluxo2025 !== null ? (fluxo2025 * 100).toFixed(0) + '%' : '-'}</span>
           </div>
         </div>
-        <div class="kpi-subtext">Escala de proficiência INEP (0 a 500)</div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-label">Indicador de Fluxo (P)</div>
-        <div class="kpi-value-row">
-          <span class="kpi-value text-slate">${fluxo2025 !== null ? (fluxo2025 * 100).toFixed(0) + '%' : '-'}</span>
-          <span class="kpi-badge-neutral">Aprovação</span>
-        </div>
-        <div class="kpi-subtext">Taxa de rendimento ponderada</div>
+        <div class="kpi-subtext">Cuidado com o truque da aprovação</div>
       </div>
     </div>
   `;
@@ -350,14 +346,11 @@ function renderTabelaRanking() {
         fluxo: d2025 ? d2025.fluxo : null
       };
     })
-    .sort((a, b) => b.ideb2025 - a.ideb2025);
+    .sort((a, b) => (b.port + b.mat) - (a.port + a.mat)); // Sort by total proficiency instead of IDEB
 
   let rowsHtml = lista.map((item, idx) => {
     const isSelected = window.currentFilters.escolaId === item.id;
-    const scoreColor = getIdebColor(item.ideb2025 > 0 ? item.ideb2025 : null, etapa);
-    const scoreText = item.ideb2025 > 0 ? item.ideb2025.toFixed(1) : "-";
-    const diff = (item.ideb2025 > 0 && item.ideb2023 !== null) ? (item.ideb2025 - item.ideb2023).toFixed(1) : null;
-    const diffBadge = diff !== null ? (diff >= 0 ? `<span class="badge-up">+${diff}</span>` : `<span class="badge-down">${diff}</span>`) : "-";
+    const idebText = item.ideb2025 > 0 ? item.ideb2025.toFixed(1) : "-";
 
     return `
       <tr class="${isSelected ? 'row-selected' : ''}" onclick="selectEscola('${item.id}')">
@@ -367,11 +360,10 @@ function renderTabelaRanking() {
           <span class="school-sub">${item.localidade}</span>
         </td>
         <td><span class="badge badge-${item.rede}">${item.rede.toUpperCase()}</span></td>
-        <td class="td-score"><span class="score-pill" style="background-color: ${scoreColor}">${scoreText}</span></td>
-        <td>${diffBadge}</td>
-        <td>${item.port ? item.port.toFixed(1) : '-'}</td>
-        <td>${item.mat ? item.mat.toFixed(1) : '-'}</td>
-        <td>${item.fluxo ? (item.fluxo * 100).toFixed(0) + '%' : '-'}</td>
+        <td style="color: #3b82f6; font-weight: bold;">${item.port !== null ? item.port.toFixed(1) : '-'}</td>
+        <td style="color: #10b981; font-weight: bold;">${item.mat !== null ? item.mat.toFixed(1) : '-'}</td>
+        <td>${idebText}</td>
+        <td>${item.fluxo !== null ? (item.fluxo * 100).toFixed(0) + '%' : '-'}</td>
       </tr>
     `;
   }).join('');
@@ -384,15 +376,14 @@ function renderTabelaRanking() {
             <th>Pos.</th>
             <th>Escola</th>
             <th>Rede</th>
+            <th>Português (SAEB)</th>
+            <th>Matemática (SAEB)</th>
             <th>IDEB 2025</th>
-            <th>Evolução</th>
-            <th>Português</th>
-            <th>Matemática</th>
             <th>Aprovação</th>
           </tr>
         </thead>
         <tbody>
-          ${rowsHtml || '<tr><td colspan="8" class="text-center">Nenhuma escola encontrada para este filtro.</td></tr>'}
+          ${rowsHtml || '<tr><td colspan="7" class="text-center">Nenhuma escola encontrada para este filtro.</td></tr>'}
         </tbody>
       </table>
     </div>
