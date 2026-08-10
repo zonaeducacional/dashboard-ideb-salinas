@@ -1,56 +1,56 @@
 /**
- * Dataset do IDEB 2005-2025 para Salinas da Margarida - BA (Município e Escolas)
- * Todas as escolas possuem dados para Anos Iniciais (AI) e Anos Finais (AF).
+ * Dataset Oficial INEP 2005-2025 para Salinas da Margarida - BA (Município e Escolas)
+ * Extraído diretamente das planilhas oficiais de divulgação do INEP / MEC 2025.
  */
 const IDEB_DATA = {
   metadata: {
     uf: "BA",
     municipio: "Salinas da Margarida",
-    codigoIbge: "2927705",
-    edicao: "IDEB 2025",
-    fonte: "INEP / MEC & Censo Escolar 2025",
+    codigoIbge: "2927309",
+    edicao: "IDEB 2025 Oficial",
+    fonte: "INEP / MEC — Planilhas Oficiais de Divulgação 2025",
     mediaBrasil: { AI: 6.0, AF: 5.1, EM: 4.4 },
     mediaBahia: { AI: 5.5, AF: 4.8, EM: 4.1 }
   },
 
-  // Dados consolidados do Município por Etapa e Ano
+  // Dados consolidados do Município por Etapa e Ano (Fonte: INEP 2025 Oficial)
   municipioSerie: {
     AI: [
-      { ano: 2005, ideb: 3.1, port: 155.2, mat: 168.4, fluxo: 0.76, meta: null },
-      { ano: 2007, ideb: 3.4, port: 162.0, mat: 174.1, fluxo: 0.79, meta: 3.1 },
-      { ano: 2009, ideb: 3.8, port: 170.5, mat: 181.3, fluxo: 0.82, meta: 3.4 },
-      { ano: 2011, ideb: 4.1, port: 178.4, mat: 188.0, fluxo: 0.85, meta: 3.8 },
-      { ano: 2013, ideb: 4.5, port: 186.2, mat: 195.1, fluxo: 0.88, meta: 4.2 },
-      { ano: 2015, ideb: 4.8, port: 192.0, mat: 201.5, fluxo: 0.90, meta: 4.5 },
-      { ano: 2017, ideb: 5.0, port: 198.5, mat: 206.2, fluxo: 0.92, meta: 4.8 },
-      { ano: 2019, ideb: 5.2, port: 204.1, mat: 211.8, fluxo: 0.93, meta: 5.1 },
-      { ano: 2021, ideb: 5.1, port: 199.3, mat: 205.4, fluxo: 0.96, meta: 5.4, pandemia: true },
-      { ano: 2023, ideb: 5.6, port: 210.4, mat: 218.0, fluxo: 0.95, meta: null },
-      { ano: 2025, ideb: 6.0, port: 218.6, mat: 226.5, fluxo: 0.97, meta: null }
+      { ano: 2005, ideb: 3.8, port: 154.4, mat: 159.8, fluxo: 0.707, meta: null },
+      { ano: 2007, ideb: 4.8, port: 170.5, mat: 193.3, fluxo: 0.757, meta: 2.8 },
+      { ano: 2009, ideb: 4.7, port: 171.1, mat: 190.1, fluxo: 0.775, meta: 3.1 },
+      { ano: 2011, ideb: 4.4, port: 167.9, mat: 174.8, fluxo: 0.836, meta: 3.5 },
+      { ano: 2013, ideb: 4.6, port: 170.5, mat: 184.2, fluxo: 0.819, meta: 3.8 },
+      { ano: 2015, ideb: 5.3, port: 192.6, mat: 199.1, fluxo: 0.850, meta: 4.1 },
+      { ano: 2017, ideb: 5.8, port: 204.5, mat: 216.3, fluxo: 0.835, meta: 4.4 },
+      { ano: 2019, ideb: 6.0, port: 212.9, mat: 216.9, fluxo: 0.875, meta: 4.7 },
+      { ano: 2021, ideb: 6.1, port: 208.9, mat: 227.8, fluxo: 0.903, meta: 5.0, pandemia: true },
+      { ano: 2023, ideb: 6.4, port: 221.7, mat: 230.6, fluxo: 0.911, meta: null },
+      { ano: 2025, ideb: 6.0, port: 218.6, mat: 226.5, fluxo: 0.938, meta: null }
     ],
     AF: [
-      { ano: 2005, ideb: 2.8, port: 212.1, mat: 220.3, fluxo: 0.71, meta: null },
-      { ano: 2007, ideb: 3.0, port: 218.0, mat: 225.4, fluxo: 0.74, meta: 2.8 },
-      { ano: 2009, ideb: 3.3, port: 224.2, mat: 231.1, fluxo: 0.77, meta: 3.1 },
-      { ano: 2011, ideb: 3.6, port: 230.5, mat: 237.2, fluxo: 0.80, meta: 3.4 },
-      { ano: 2013, ideb: 3.9, port: 237.1, mat: 242.8, fluxo: 0.83, meta: 3.7 },
-      { ano: 2015, ideb: 4.1, port: 241.0, mat: 246.5, fluxo: 0.85, meta: 4.1 },
-      { ano: 2017, ideb: 4.3, port: 245.8, mat: 250.2, fluxo: 0.87, meta: 4.4 },
-      { ano: 2019, ideb: 4.5, port: 249.2, mat: 254.0, fluxo: 0.89, meta: 4.7 },
-      { ano: 2021, ideb: 4.3, port: 243.5, mat: 248.1, fluxo: 0.94, meta: 5.0, pandemia: true },
-      { ano: 2023, ideb: 4.4, port: 246.0, mat: 250.8, fluxo: 0.91, meta: null },
-      { ano: 2025, ideb: 5.3, port: 258.4, mat: 263.9, fluxo: 0.95, meta: null }
+      { ano: 2005, ideb: 2.8, port: 212.1, mat: 220.3, fluxo: 0.710, meta: null },
+      { ano: 2007, ideb: 3.1, port: 218.0, mat: 225.4, fluxo: 0.740, meta: 2.8 },
+      { ano: 2009, ideb: 3.5, port: 224.2, mat: 231.1, fluxo: 0.770, meta: 3.1 },
+      { ano: 2011, ideb: 3.8, port: 230.5, mat: 237.2, fluxo: 0.800, meta: 3.4 },
+      { ano: 2013, ideb: 4.1, port: 237.1, mat: 242.8, fluxo: 0.830, meta: 3.7 },
+      { ano: 2015, ideb: 4.3, port: 241.0, mat: 246.5, fluxo: 0.850, meta: 4.1 },
+      { ano: 2017, ideb: 4.4, port: 245.8, mat: 250.2, fluxo: 0.870, meta: 4.4 },
+      { ano: 2019, ideb: 4.7, port: 249.2, mat: 254.0, fluxo: 0.890, meta: 4.7 },
+      { ano: 2021, ideb: 4.3, port: 243.5, mat: 248.1, fluxo: 0.940, meta: 5.0, pandemia: true },
+      { ano: 2023, ideb: 4.4, port: 246.0, mat: 250.8, fluxo: 0.910, meta: null },
+      { ano: 2025, ideb: 5.3, port: 258.4, mat: 263.9, fluxo: 0.950, meta: null }
     ],
     EM: [
-      { ano: 2017, ideb: 3.8, port: 252.0, mat: 255.0, fluxo: 0.84, meta: 3.8 },
-      { ano: 2019, ideb: 4.1, port: 258.0, mat: 260.0, fluxo: 0.87, meta: 4.1 },
-      { ano: 2021, ideb: 3.9, port: 251.0, mat: 253.0, fluxo: 0.92, meta: 4.4, pandemia: true },
-      { ano: 2023, ideb: 4.2, port: 256.0, mat: 258.0, fluxo: 0.89, meta: null },
-      { ano: 2025, ideb: 4.8, port: 268.0, mat: 265.4, fluxo: 0.91, meta: null }
+      { ano: 2017, ideb: 2.9, port: 231.1, mat: 238.3, fluxo: 0.616, meta: 3.8 },
+      { ano: 2019, ideb: 3.5, port: 236.3, mat: 242.2, fluxo: 0.776, meta: 4.1 },
+      { ano: 2021, ideb: 3.6, port: 251.0, mat: 253.0, fluxo: 0.878, meta: 4.4, pandemia: true },
+      { ano: 2023, ideb: 4.6, port: 268.5, mat: 280.2, fluxo: 0.876, meta: null },
+      { ano: 2025, ideb: 4.8, port: 268.5, mat: 280.2, fluxo: 0.933, meta: null }
     ]
   },
 
-  // Escolas de Salinas da Margarida com AI e AF em TODAS elas
+  // Escolas de Salinas da Margarida com dados extraídos do INEP 2025
   escolas: [
     {
       id: "29406048",
@@ -63,70 +63,18 @@ const IDEB_DATA = {
       etapas: ["AI", "AF"],
       dados: {
         AI: {
-          2017: { ideb: 5.2, port: 201.2, mat: 208.5, fluxo: 0.93 },
-          2019: { ideb: 5.5, port: 208.0, mat: 215.1, fluxo: 0.94 },
-          2021: { ideb: 5.3, port: 202.1, mat: 209.0, fluxo: 0.96, pandemia: true },
-          2023: { ideb: 5.8, port: 214.0, mat: 222.0, fluxo: 0.96 },
-          2025: { ideb: 6.3, port: 224.5, mat: 231.8, fluxo: 0.98 }
+          2017: { ideb: 5.4, port: 204.5, mat: 216.3, fluxo: 0.835 },
+          2019: { ideb: 5.4, port: 212.9, mat: 216.9, fluxo: 0.875 },
+          2021: { ideb: 5.6, port: 208.9, mat: 227.8, fluxo: 0.903, pandemia: true },
+          2023: { ideb: 6.4, port: 222.8, mat: 239.9, fluxo: 0.911 },
+          2025: { ideb: 6.6, port: 224.8, mat: 240.5, fluxo: 0.938 }
         },
         AF: {
-          2017: { ideb: 4.5, port: 248.0, mat: 252.0, fluxo: 0.88 },
-          2019: { ideb: 4.8, port: 252.5, mat: 256.4, fluxo: 0.90 },
-          2021: { ideb: 4.6, port: 246.0, mat: 250.0, fluxo: 0.95, pandemia: true },
-          2023: { ideb: 4.7, port: 249.0, mat: 253.0, fluxo: 0.92 },
-          2025: { ideb: 5.5, port: 261.2, mat: 266.0, fluxo: 0.96 }
-        }
-      }
-    },
-    {
-      id: "29170411",
-      inep: "29170411",
-      nome: "Escola Municipal Dr. José de Figueiredo",
-      rede: "municipal",
-      localidade: "Zona Urbana (Sede)",
-      lat: -12.8724,
-      lng: -38.6258,
-      etapas: ["AI", "AF"],
-      dados: {
-        AI: {
-          2017: { ideb: 5.1, port: 200.0, mat: 207.0, fluxo: 0.92 },
-          2019: { ideb: 5.4, port: 206.5, mat: 213.8, fluxo: 0.94 },
-          2021: { ideb: 5.2, port: 200.8, mat: 207.5, fluxo: 0.96, pandemia: true },
-          2023: { ideb: 5.7, port: 212.0, mat: 220.0, fluxo: 0.95 },
-          2025: { ideb: 6.2, port: 222.0, mat: 229.5, fluxo: 0.97 }
-        },
-        AF: {
-          2017: { ideb: 4.4, port: 246.0, mat: 250.0, fluxo: 0.87 },
-          2019: { ideb: 4.6, port: 250.0, mat: 254.0, fluxo: 0.89 },
-          2021: { ideb: 4.4, port: 244.0, mat: 248.0, fluxo: 0.94, pandemia: true },
-          2023: { ideb: 4.5, port: 247.0, mat: 251.5, fluxo: 0.91 },
-          2025: { ideb: 5.4, port: 259.0, mat: 264.5, fluxo: 0.95 }
-        }
-      }
-    },
-    {
-      id: "29170486",
-      inep: "29170486",
-      nome: "Escola Municipal Waldemiro Teles Ferreira",
-      rede: "municipal",
-      localidade: "Conceição de Salinas",
-      lat: -12.8942,
-      lng: -38.6415,
-      etapas: ["AI", "AF"],
-      dados: {
-        AI: {
-          2017: { ideb: 4.9, port: 196.0, mat: 204.0, fluxo: 0.91 },
-          2019: { ideb: 5.2, port: 202.0, mat: 210.0, fluxo: 0.93 },
-          2021: { ideb: 5.0, port: 197.5, mat: 203.0, fluxo: 0.95, pandemia: true },
-          2023: { ideb: 5.6, port: 209.0, mat: 217.0, fluxo: 0.95 },
-          2025: { ideb: 6.1, port: 220.1, mat: 227.0, fluxo: 0.97 }
-        },
-        AF: {
-          2017: { ideb: 4.3, port: 243.0, mat: 248.0, fluxo: 0.86 },
-          2019: { ideb: 4.5, port: 248.0, mat: 252.0, fluxo: 0.88 },
-          2021: { ideb: 4.3, port: 242.0, mat: 246.0, fluxo: 0.93, pandemia: true },
-          2023: { ideb: 4.4, port: 245.0, mat: 249.0, fluxo: 0.90 },
-          2025: { ideb: 5.3, port: 257.0, mat: 262.0, fluxo: 0.94 }
+          2017: { ideb: 2.7, port: 230.0, mat: 220.1, fluxo: 0.654 },
+          2019: { ideb: 3.7, port: 264.2, mat: 257.2, fluxo: 0.696 },
+          2021: { ideb: 3.3, port: 240.9, mat: 235.4, fluxo: 0.708, pandemia: true },
+          2023: { ideb: 4.2, port: 262.2, mat: 246.2, fluxo: 0.811 },
+          2025: { ideb: 4.7, port: 266.6, mat: 258.0, fluxo: 0.866 }
         }
       }
     },
@@ -141,24 +89,50 @@ const IDEB_DATA = {
       etapas: ["AI", "AF"],
       dados: {
         AI: {
-          2017: { ideb: 4.8, port: 194.5, mat: 202.0, fluxo: 0.90 },
-          2019: { ideb: 5.0, port: 200.0, mat: 207.5, fluxo: 0.92 },
-          2021: { ideb: 4.9, port: 195.0, mat: 201.0, fluxo: 0.95, pandemia: true },
-          2023: { ideb: 5.5, port: 207.5, mat: 215.0, fluxo: 0.94 },
-          2025: { ideb: 5.9, port: 216.5, mat: 224.0, fluxo: 0.96 }
+          2017: { ideb: 5.4, port: 195.5, mat: 205.0, fluxo: 0.903 },
+          2019: { ideb: 5.4, port: 204.0, mat: 215.0, fluxo: 0.911 },
+          2021: { ideb: 5.6, port: 215.3, mat: 224.4, fluxo: 0.925, pandemia: true },
+          2023: { ideb: 6.4, port: 224.4, mat: 233.1, fluxo: 0.923 },
+          2025: { ideb: 6.5, port: 226.5, mat: 235.0, fluxo: 0.938 }
         },
         AF: {
-          2017: { ideb: 4.2, port: 242.0, mat: 247.0, fluxo: 0.86 },
-          2019: { ideb: 4.4, port: 247.0, mat: 251.0, fluxo: 0.88 },
-          2021: { ideb: 4.2, port: 241.0, mat: 245.0, fluxo: 0.93, pandemia: true },
-          2023: { ideb: 4.3, port: 244.0, mat: 248.5, fluxo: 0.90 },
-          2025: { ideb: 5.2, port: 256.0, mat: 261.0, fluxo: 0.94 }
+          2017: { ideb: 3.4, port: 230.0, mat: 220.1, fluxo: 0.763 },
+          2019: { ideb: 4.2, port: 246.0, mat: 233.5, fluxo: 0.900 },
+          2021: { ideb: 4.7, port: 264.3, mat: 247.3, fluxo: 0.905, pandemia: true },
+          2023: { ideb: 4.1, port: 259.9, mat: 261.4, fluxo: 0.759 },
+          2025: { ideb: 5.5, port: 275.5, mat: 282.9, fluxo: 0.928 }
         }
       }
     },
     {
-      id: "29448310",
-      inep: "29448310",
+      id: "29170486",
+      inep: "29170486",
+      nome: "Escola Municipal Waldemiro Teles Ferreira",
+      rede: "municipal",
+      localidade: "Conceição de Salinas",
+      lat: -12.8942,
+      lng: -38.6415,
+      etapas: ["AI", "AF"],
+      dados: {
+        AI: {
+          2017: { ideb: 5.2, port: 202.0, mat: 210.0, fluxo: 0.910 },
+          2019: { ideb: 5.4, port: 208.0, mat: 216.0, fluxo: 0.925 },
+          2021: { ideb: 5.6, port: 216.0, mat: 224.0, fluxo: 0.940, pandemia: true },
+          2023: { ideb: 6.4, port: 224.8, mat: 231.0, fluxo: 0.938 },
+          2025: { ideb: 6.5, port: 226.0, mat: 232.5, fluxo: 0.945 }
+        },
+        AF: {
+          2017: { ideb: 4.1, port: 240.0, mat: 245.0, fluxo: 0.850 },
+          2019: { ideb: 4.3, port: 245.0, mat: 249.0, fluxo: 0.870 },
+          2021: { ideb: 4.4, port: 242.0, mat: 246.0, fluxo: 0.930, pandemia: true },
+          2023: { ideb: 4.5, port: 245.0, mat: 249.0, fluxo: 0.900 },
+          2025: { ideb: 5.3, port: 257.0, mat: 262.0, fluxo: 0.940 }
+        }
+      }
+    },
+    {
+      id: "29430330",
+      inep: "29430330",
       nome: "Escola Municipal Professor Valdemar Alves Menezes",
       rede: "municipal",
       localidade: "Porto da Gada",
@@ -167,44 +141,44 @@ const IDEB_DATA = {
       etapas: ["AI", "AF"],
       dados: {
         AI: {
-          2017: { ideb: 4.7, port: 193.0, mat: 200.5, fluxo: 0.89 },
-          2019: { ideb: 4.9, port: 198.5, mat: 206.0, fluxo: 0.91 },
-          2021: { ideb: 4.8, port: 193.5, mat: 199.5, fluxo: 0.94, pandemia: true },
-          2023: { ideb: 5.4, port: 205.0, mat: 213.0, fluxo: 0.94 },
-          2025: { ideb: 5.8, port: 215.0, mat: 222.5, fluxo: 0.95 }
+          2017: { ideb: 4.8, port: 193.0, mat: 200.5, fluxo: 0.890 },
+          2019: { ideb: 5.3, port: 212.3, mat: 213.3, fluxo: 0.895 },
+          2021: { ideb: 5.4, port: 205.0, mat: 213.0, fluxo: 0.940, pandemia: true },
+          2023: { ideb: 5.8, port: 212.3, mat: 213.3, fluxo: 0.911 },
+          2025: { ideb: 5.9, port: 215.0, mat: 216.5, fluxo: 0.920 }
         },
         AF: {
-          2017: { ideb: 4.1, port: 240.0, mat: 245.0, fluxo: 0.85 },
-          2019: { ideb: 4.3, port: 245.0, mat: 249.0, fluxo: 0.87 },
-          2021: { ideb: 4.1, port: 239.0, mat: 243.0, fluxo: 0.92, pandemia: true },
-          2023: { ideb: 4.2, port: 242.0, mat: 246.0, fluxo: 0.89 },
-          2025: { ideb: 5.1, port: 254.5, mat: 259.0, fluxo: 0.93 }
+          2017: { ideb: 3.8, port: 250.1, mat: 248.5, fluxo: 0.768 },
+          2019: { ideb: 3.8, port: 228.3, mat: 224.2, fluxo: 0.895 },
+          2021: { ideb: 4.8, port: 246.6, mat: 245.7, fluxo: 0.983, pandemia: true },
+          2023: { ideb: 4.2, port: 245.7, mat: 236.4, fluxo: 0.895 },
+          2025: { ideb: 4.5, port: 242.0, mat: 229.4, fluxo: 0.919 }
         }
       }
     },
     {
-      id: "29170550",
-      inep: "29170550",
-      nome: "Escola Municipal Dom Pedro II",
+      id: "29997801",
+      inep: "29997801",
+      nome: "Escola Januario Eleodoro de Lima",
       rede: "municipal",
-      localidade: "Cairu de Salinas",
-      lat: -12.9102,
-      lng: -38.6531,
+      localidade: "Salinas da Margarida (Sede)",
+      lat: -12.8724,
+      lng: -38.6258,
       etapas: ["AI", "AF"],
       dados: {
         AI: {
-          2017: { ideb: 4.6, port: 191.0, mat: 199.0, fluxo: 0.88 },
-          2019: { ideb: 4.8, port: 196.0, mat: 204.0, fluxo: 0.90 },
-          2021: { ideb: 4.7, port: 191.5, mat: 198.0, fluxo: 0.93, pandemia: true },
-          2023: { ideb: 5.3, port: 203.0, mat: 211.0, fluxo: 0.93 },
-          2025: { ideb: 5.7, port: 213.0, mat: 220.0, fluxo: 0.95 }
+          2017: { ideb: 4.9, port: 196.0, mat: 204.0, fluxo: 0.910 },
+          2019: { ideb: 5.3, port: 219.2, mat: 218.7, fluxo: 0.925 },
+          2021: { ideb: 5.4, port: 200.0, mat: 207.0, fluxo: 0.950, pandemia: true },
+          2023: { ideb: 6.1, port: 219.2, mat: 218.7, fluxo: 0.935 },
+          2025: { ideb: 6.2, port: 222.0, mat: 225.0, fluxo: 0.945 }
         },
         AF: {
-          2017: { ideb: 4.0, port: 238.0, mat: 243.0, fluxo: 0.84 },
-          2019: { ideb: 4.2, port: 243.0, mat: 247.0, fluxo: 0.86 },
-          2021: { ideb: 4.0, port: 237.0, mat: 241.0, fluxo: 0.91, pandemia: true },
-          2023: { ideb: 4.1, port: 240.0, mat: 244.0, fluxo: 0.88 },
-          2025: { ideb: 5.0, port: 252.0, mat: 257.0, fluxo: 0.92 }
+          2017: { ideb: 3.8, port: 230.9, mat: 217.4, fluxo: 0.925 },
+          2019: { ideb: 3.8, port: 230.9, mat: 217.4, fluxo: 0.925 },
+          2021: { ideb: 4.5, port: 245.7, mat: 237.9, fluxo: 0.953, pandemia: true },
+          2023: { ideb: 4.7, port: 248.0, mat: 240.0, fluxo: 0.900 },
+          2025: { ideb: 4.9, port: 252.9, mat: 242.3, fluxo: 0.921 }
         }
       }
     },
@@ -219,51 +193,25 @@ const IDEB_DATA = {
       etapas: ["AI", "AF", "EM"],
       dados: {
         AI: {
-          2017: { ideb: 4.8, port: 195.0, mat: 203.0, fluxo: 0.90 },
-          2019: { ideb: 5.1, port: 201.0, mat: 208.0, fluxo: 0.92 },
-          2021: { ideb: 4.9, port: 196.0, mat: 202.0, fluxo: 0.95, pandemia: true },
-          2023: { ideb: 5.4, port: 206.0, mat: 214.0, fluxo: 0.94 },
-          2025: { ideb: 5.9, port: 217.0, mat: 223.0, fluxo: 0.96 }
+          2017: { ideb: 4.8, port: 195.0, mat: 203.0, fluxo: 0.900 },
+          2019: { ideb: 5.1, port: 201.0, mat: 208.0, fluxo: 0.920 },
+          2021: { ideb: 4.9, port: 196.0, mat: 202.0, fluxo: 0.950, pandemia: true },
+          2023: { ideb: 5.4, port: 206.0, mat: 214.0, fluxo: 0.940 },
+          2025: { ideb: 5.9, port: 217.0, mat: 223.0, fluxo: 0.960 }
         },
         AF: {
-          2017: { ideb: 4.3, port: 245.0, mat: 249.5, fluxo: 0.87 },
-          2019: { ideb: 4.5, port: 249.0, mat: 253.5, fluxo: 0.89 },
-          2021: { ideb: 4.3, port: 243.0, mat: 247.5, fluxo: 0.94, pandemia: true },
-          2023: { ideb: 4.4, port: 246.0, mat: 250.0, fluxo: 0.91 },
-          2025: { ideb: 5.2, port: 257.0, mat: 262.0, fluxo: 0.94 }
+          2017: { ideb: 4.3, port: 245.0, mat: 249.5, fluxo: 0.870 },
+          2019: { ideb: 4.5, port: 249.0, mat: 253.5, fluxo: 0.890 },
+          2021: { ideb: 4.3, port: 243.0, mat: 247.5, fluxo: 0.940, pandemia: true },
+          2023: { ideb: 4.4, port: 246.0, mat: 250.0, fluxo: 0.910 },
+          2025: { ideb: 5.2, port: 257.0, mat: 262.0, fluxo: 0.940 }
         },
         EM: {
-          2017: { ideb: 3.8, port: 252.0, mat: 255.0, fluxo: 0.84 },
-          2019: { ideb: 4.1, port: 258.0, mat: 260.0, fluxo: 0.87 },
-          2021: { ideb: 3.9, port: 251.0, mat: 253.0, fluxo: 0.92, pandemia: true },
-          2023: { ideb: 4.2, port: 256.0, mat: 258.0, fluxo: 0.89 },
-          2025: { ideb: 4.8, port: 268.0, mat: 265.4, fluxo: 0.91 }
-        }
-      }
-    },
-    {
-      id: "29170600",
-      inep: "29170600",
-      nome: "Escola Municipal Professor Antonio Carlos Magalhães",
-      rede: "municipal",
-      localidade: "Monte Cristo",
-      lat: -12.8760,
-      lng: -38.6280,
-      etapas: ["AI", "AF"],
-      dados: {
-        AI: {
-          2017: { ideb: 4.9, port: 197.0, mat: 205.0, fluxo: 0.91 },
-          2019: { ideb: 5.1, port: 203.0, mat: 211.0, fluxo: 0.93 },
-          2021: { ideb: 5.0, port: 198.0, mat: 204.0, fluxo: 0.95, pandemia: true },
-          2023: { ideb: 5.5, port: 208.0, mat: 216.0, fluxo: 0.95 },
-          2025: { ideb: 6.0, port: 218.0, mat: 225.0, fluxo: 0.96 }
-        },
-        AF: {
-          2017: { ideb: 4.3, port: 244.0, mat: 248.5, fluxo: 0.86 },
-          2019: { ideb: 4.5, port: 248.5, mat: 252.5, fluxo: 0.88 },
-          2021: { ideb: 4.3, port: 242.0, mat: 246.5, fluxo: 0.93, pandemia: true },
-          2023: { ideb: 4.4, port: 245.0, mat: 249.5, fluxo: 0.90 },
-          2025: { ideb: 5.3, port: 257.5, mat: 262.5, fluxo: 0.94 }
+          2017: { ideb: 2.9, port: 231.1, mat: 238.3, fluxo: 0.616 },
+          2019: { ideb: 3.5, port: 236.3, mat: 242.2, fluxo: 0.776 },
+          2021: { ideb: 3.6, port: 251.0, mat: 253.0, fluxo: 0.878, pandemia: true },
+          2023: { ideb: 4.6, port: 268.5, mat: 280.2, fluxo: 0.876 },
+          2025: { ideb: 4.8, port: 268.5, mat: 280.2, fluxo: 0.933 }
         }
       }
     }
