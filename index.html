@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IDEB 2025 — Salinas da Margarida (BA)</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Dashboard interativo do IDEB 2025 de Salinas da Margarida (BA). Resultados do município, notas do Saeb, fluxo e séries históricas por escola." />
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Custom Dashboard CSS -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Cabecalho Principal -->
+  <header class="main-header">
+    <div class="brand-wrapper">
+      <div class="brand-logo">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="brand-title">
+        <h1>IDEB em Mapa — Salinas da Margarida</h1>
+        <p>Qualidade da Educação Básica Municipal, de 2005 a 2025</p>
+      </div>
+    </div>
+
+    <div class="header-meta">
+      <div class="meta-box">
+        <span class="meta-label">Fonte</span>
+        <span class="meta-value">INEP / MEC</span>
+      </div>
+      <div class="meta-box">
+        <span class="meta-label">Edição</span>
+        <span class="meta-value">IDEB 2025</span>
+      </div>
+      <div class="meta-box">
+        <span class="meta-label">Município</span>
+        <span class="meta-value">Salinas da Margarida - BA</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout Principal (Sidebar + Conteudo) -->
+  <div class="layout-body">
+
+    <!-- Barra Lateral de Filtros -->
+    <aside class="sidebar">
+      <p class="sidebar-title">Recorte</p>
+      
+      <!-- Filtro 1: Etapa de Ensino -->
+      <div class="filter-group">
+        <label class="filter-label">Etapa de ensino</label>
+        <div class="radio-pill-group">
+          <input type="radio" id="etapa_ai" name="etapa" value="AI" checked />
+          <label for="etapa_ai">Anos Iniciais (1º-5º)</label>
+          
+          <input type="radio" id="etapa_af" name="etapa" value="AF" />
+          <label for="etapa_af">Anos Finais (6º-9º)</label>
+          
+          <input type="radio" id="etapa_em" name="etapa" value="EM" />
+          <label for="etapa_em">Ensino Médio</label>
+        </div>
+      </div>
+
+      <!-- Filtro 2: Rede de Ensino -->
+      <div class="filter-group">
+        <label class="filter-label" for="rede">Rede de ensino</label>
+        <select id="rede" class="form-select">
+          <option value="todas" selected>Todas as redes</option>
+          <option value="publica">Rede pública</option>
+          <option value="municipal">Rede municipal</option>
+          <option value="estadual">Rede estadual</option>
+        </select>
+      </div>
+
+      <p class="sidebar-title">Localização & Escola</p>
+      
+      <!-- Filtro 3: Escola -->
+      <div class="filter-group">
+        <label class="filter-label" for="escola">Escola</label>
+        <select id="escola" class="form-select">
+          <option value="">Todas as escolas</option>
+        </select>
+      </div>
+
+      <!-- Açoes da Barra Lateral -->
+      <div class="sidebar-actions">
+        <button id="limpar" class="btn-sidebar btn-sidebar-secondary" type="button">
+          <i class="fas fa-rotate-left"></i> Limpar seleção
+        </button>
+        <a id="baixar_lista" class="btn-sidebar btn-sidebar-primary" href="#">
+          <i class="fas fa-download"></i> Lista em CSV
+        </a>
+        <a id="baixar_serie" class="btn-sidebar btn-sidebar-secondary" href="#">
+          <i class="fas fa-file-csv"></i> Série histórica em CSV
+        </a>
+      </div>
+
+      <div class="sidebar-info-box">
+        O IDEB combina <b>aprendizado</b> (nota do Saeb) e <b>fluxo</b> (aprovação) em uma escala de 0 a 10.
+        <br/><br/>
+        Clique nos marcadores do mapa para ver os dados de cada unidade escolar em Salinas da Margarida.
+      </div>
+    </aside>
+
+    <!-- Área Principal de Conteúdo -->
+    <main class="main-content">
+      
+      <!-- Breadcrumb Bar -->
+      <div id="trilha"></div>
+
+      <!-- Painel Superior: Mapa + Cards KPIs -->
+      <div class="dashboard-top-panel">
+        
+        <!-- Cartão do Mapa -->
+        <div class="map-card">
+          <div class="map-card-header">
+            <div>
+              <h3 id="titulo_mapa">Salinas da Margarida — Anos Iniciais</h3>
+              <p id="sub_mapa">Censo Escolar 2025 • Todas as Redes</p>
+            </div>
+            <span class="badge badge-municipal">BAÍAS E RECÔNCAVO</span>
+          </div>
+          <div id="mapa"></div>
+        </div>
+
+        <!-- Painel Lateral de KPIs -->
+        <div class="kpis-side-panel" id="kpis">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+      <!-- Seção Inferior com Abas -->
+      <div class="content-tabs-card">
+        <div class="tabs-header">
+          <ul class="nav-tabs" id="abas">
+            <li><a href="#tab-serie" class="active" data-bs-toggle="tab">Série histórica</a></li>
+            <li><a href="#tab-ranking" data-bs-toggle="tab">Lista e ranking</a></li>
+            <li><a href="#tab-dados" data-bs-toggle="tab">Tabela de dados</a></li>
+            <li><a href="#tab-como-ler" data-bs-toggle="tab">Como ler o IDEB</a></li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          
+          <!-- Aba 1: Série Histórica -->
+          <div class="tab-pane active" id="tab-serie">
+            <div id="ficha_escola"></div>
+            <div class="chart-container">
+              <canvas id="grafico_canvas"></canvas>
+            </div>
+          </div>
+
+          <!-- Aba 2: Lista e Ranking -->
+          <div class="tab-pane" id="tab-ranking">
+            <div id="tabela"></div>
+          </div>
+
+          <!-- Aba 3: Tabela de Dados Completa -->
+          <div class="tab-pane" id="tab-dados">
+            <div id="tabela_serie"></div>
+          </div>
+
+          <!-- Aba 4: Como ler o IDEB -->
+          <div class="tab-pane" id="tab-como-ler">
+            <div class="texto-explicativo">
+              <h4>O que é o IDEB</h4>
+              <p>O <b>Índice de Desenvolvimento da Educação Básica</b> foi criado pelo INEP em 2007 para medir a qualidade da educação em uma única nota de <b>0 a 10</b>. Ele resulta da multiplicação de dois componentes:</p>
+              <p><code>IDEB = N × P</code></p>
+              <ul>
+                <li><b>N — aprendizado:</b> a nota média dos estudantes no Saeb em Língua Portuguesa e Matemática, convertida para a escala de 0 a 10.</li>
+                <li><b>P — fluxo:</b> o indicador de rendimento, calculado a partir das taxas de aprovação. Vale entre 0 e 1.</li>
+              </ul>
+
+              <h4>Etapas avaliadas</h4>
+              <ul>
+                <li><b>Anos Iniciais</b> — 1º ao 5º ano do ensino fundamental (avaliação realizada no 5º ano).</li>
+                <li><b>Anos Finais</b> — 6º ao 9º ano do ensino fundamental (avaliação realizada no 9º ano).</li>
+                <li><b>Ensino Médio</b> — avaliado no 3º ano do ensino médio.</li>
+              </ul>
+
+              <h4>Cuidados na leitura</h4>
+              <ul>
+                <li>A edição de <b>2021</b> ocorreu durante a pandemia de Covid-19, com aulas remotas e regras excepcionais de aprovação. Por isso ela aparece destacada na série histórica.</li>
+                <li>As <b>metas</b> mostradas foram as projetadas no 1º ciclo do IDEB até 2021.</li>
+                <li>O IDEB de Salinas da Margarida em 2025 registrou importante evolução, atingindo <b>6,0 nos Anos Iniciais</b> e <b>5,3 nos Anos Finais</b>.</li>
+              </ul>
+
+              <h4>As cores do mapa</h4>
+              <p>Os marcadores no mapa variam do <b>vermelho</b> (notas mais baixas) ao <b>azul/verde</b> (notas mais altas). A escala compara o desempenho com as médias de referência da etapa de ensino.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="app-footer">
+    <div>Dados públicos do <b>INEP/MEC</b>. Dashboard construído para o município de <b>Salinas da Margarida (BA)</b>.</div>
+    <div>Última edição disponível: <b>IDEB 2025</b></div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
