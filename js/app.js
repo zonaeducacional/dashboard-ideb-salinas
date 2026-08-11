@@ -245,10 +245,19 @@ function renderEscolaView() {
           </tr>
         </thead>
         <tbody>
-          ${rowsHtml || '<tr><td colspan="5">Sem dados</td></tr>'}
+          ${rowsHtml || '<tr><td colspan="7">Sem dados</td></tr>'}
         </tbody>
       </table>
     </div>
+
+    ${typeof ANALISES_ESCOLAS !== 'undefined' && ANALISES_ESCOLAS[escola.id] ? `
+    <div style="margin-top: 2.5rem; background: #fdfaf6; border: 1px solid #ebd9c8; border-radius: 8px; padding: 1.5rem; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+        <div style="position: absolute; top: -12px; left: 20px; background: var(--color-burgundy); color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.75em; font-weight: bold; display: flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 4px rgba(110,21,56,0.3);">
+            <i class="fas fa-brain"></i> Diagnóstico Pedagógico Especializado
+        </div>
+        ${ANALISES_ESCOLAS[escola.id]}
+    </div>
+    ` : ''}
   `;
 }
 
