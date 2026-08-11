@@ -112,6 +112,7 @@ function renderMunicipioView() {
   // 2. Render Tabela Município
   const tableContainer = document.getElementById("tabela-municipio");
   if (tableContainer) {
+    let rowsHtml = [...serieMun].sort((a,b) => b.ano - a.ano).map(r => {
       const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-', sintese: '-' };
       const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-', sintese: '-' };
       return `
