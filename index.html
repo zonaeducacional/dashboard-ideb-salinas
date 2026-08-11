@@ -55,6 +55,13 @@
           <option value="">Selecione uma escola...</option>
         </select>
       </div>
+
+      <div style="margin-top: 2rem;">
+        <button id="btn-escala" style="width: 100%; padding: 0.75rem; background: var(--color-burgundy); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: background 0.2s;">
+          <i class="fas fa-book-open"></i>
+          Consultar Níveis SAEB
+        </button>
+      </div>
     </aside>
 
     <!-- Área Principal de Conteúdo -->
@@ -106,6 +113,24 @@
       </div>
 
     </main>
+  </div>
+
+  <!-- Modal Escalas SAEB -->
+  <div id="modal-escala" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <h2>Escalas de Proficiência do SAEB</h2>
+      <p style="color: var(--color-purple); margin-bottom: 1rem;" id="modal-escala-etapa">Anos Iniciais / Finais</p>
+      
+      <div style="display: flex; gap: 1rem; border-bottom: 1px solid #ccc; margin-bottom: 1rem;">
+        <button id="tab-port" class="tab-btn active">Língua Portuguesa</button>
+        <button id="tab-mat" class="tab-btn">Matemática</button>
+      </div>
+
+      <div id="escala-content" class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+        <!-- Content populated via JS -->
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->

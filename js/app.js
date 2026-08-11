@@ -113,17 +113,15 @@ function renderMunicipioView() {
   const tableContainer = document.getElementById("tabela-municipio");
   if (tableContainer) {
     let rowsHtml = [...serieMun].sort((a,b) => b.ano - a.ano).map(r => {
-      const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-', sintese: '-' };
-      const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-', sintese: '-' };
+      const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-' };
+      const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-' };
       return `
         <tr>
           <td><b>${r.ano}</b></td>
           <td style="color: var(--color-burgundy); font-weight: bold;">${r.port ? r.port.toFixed(1) : '-'}</td>
           <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classPort.nivel}</td>
-          <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classPort.sintese}</td>
           <td style="color: var(--color-teal); font-weight: bold;">${r.mat ? r.mat.toFixed(1) : '-'}</td>
           <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classMat.nivel}</td>
-          <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classMat.sintese}</td>
           <td>${r.ideb ? r.ideb.toFixed(1) : '-'}</td>
           <td>${r.fluxo ? (r.fluxo * 100).toFixed(0) + '%' : '-'}</td>
         </tr>
@@ -138,10 +136,8 @@ function renderMunicipioView() {
               <th>Ano</th>
               <th>Português (SAEB)</th>
               <th>Nível Port.</th>
-              <th>Síntese Port.</th>
               <th>Matemática (SAEB)</th>
               <th>Nível Mat.</th>
-              <th>Síntese Mat.</th>
               <th>IDEB</th>
               <th>Aprovação</th>
             </tr>
@@ -187,17 +183,15 @@ function renderEscolaView() {
   let matStr = latest && latest.mat ? latest.mat.toFixed(1) : '-';
 
   let rowsHtml = [...serieEsc].sort((a,b) => b.ano - a.ano).map(r => {
-    const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-', sintese: '-' };
-    const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-', sintese: '-' };
+    const classPort = typeof getSaebClassification === 'function' ? getSaebClassification(r.port, 'port', etapa) : { nivel: '-' };
+    const classMat = typeof getSaebClassification === 'function' ? getSaebClassification(r.mat, 'mat', etapa) : { nivel: '-' };
     return `
     <tr>
       <td><b>${r.ano}</b></td>
       <td style="color: var(--color-burgundy); font-weight: bold;">${r.port ? r.port.toFixed(1) : '-'}</td>
       <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classPort.nivel}</td>
-      <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classPort.sintese}</td>
       <td style="color: var(--color-teal); font-weight: bold;">${r.mat ? r.mat.toFixed(1) : '-'}</td>
       <td style="font-size: 0.85em; font-weight: bold; color: #555;">${classMat.nivel}</td>
-      <td style="font-size: 0.8em; color: #666; max-width: 200px;">${classMat.sintese}</td>
       <td>${r.ideb ? r.ideb.toFixed(1) : '-'}</td>
       <td>${r.fluxo ? (r.fluxo * 100).toFixed(0) + '%' : '-'}</td>
     </tr>
@@ -232,10 +226,8 @@ function renderEscolaView() {
             <th>Ano</th>
             <th>Português (SAEB)</th>
             <th>Nível Port.</th>
-            <th>Síntese Port.</th>
             <th>Matemática (SAEB)</th>
             <th>Nível Mat.</th>
-            <th>Síntese Mat.</th>
             <th>IDEB</th>
             <th>Aprovação</th>
           </tr>
@@ -247,3 +239,71 @@ function renderEscolaView() {
     </div>
   `;
 }
+
+// -------------------------------------------------------------
+// MODAL DE ESCALAS SAEB
+// -------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('modal-escala');
+  const btn = document.getElementById('btn-escala');
+  const closeBtn = document.getElementById('close-modal');
+  const tabPort = document.getElementById('tab-port');
+  const tabMat = document.getElementById('tab-mat');
+  const content = document.getElementById('escala-content');
+  const etapaLabel = document.getElementById('modal-escala-etapa');
+
+  let currentTab = 'port';
+
+  function renderModalContent() {
+    const etapa = window.currentFilters.etapa;
+    etapaLabel.innerText = etapa === 'AI' ? 'Anos Iniciais (5º Ano)' : 'Anos Finais (9º Ano)';
+    
+    let html = '<table class="custom-table" style="font-size: 0.85em;"><thead><tr><th>Nível</th><th>Síntese das Habilidades</th></tr></thead><tbody>';
+    
+    // We loop over scores to get all levels
+    // AI Port: 0 to 9, AI Mat: 0 to 10
+    // AF Port: 0 to 8, AF Mat: 0 to 9
+    let scoresToTest = [];
+    if (etapa === 'AI' && currentTab === 'port') scoresToTest = [100, 125, 150, 175, 200, 225, 250, 275, 300, 325];
+    else if (etapa === 'AI' && currentTab === 'mat') scoresToTest = [100, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375];
+    else if (etapa === 'AF' && currentTab === 'port') scoresToTest = [100, 225, 250, 275, 300, 325, 350, 375, 400];
+    else if (etapa === 'AF' && currentTab === 'mat') scoresToTest = [100, 225, 250, 275, 300, 325, 350, 375, 400, 425];
+
+    scoresToTest.forEach(score => {
+      const cls = typeof getSaebClassification === 'function' ? getSaebClassification(score, currentTab, etapa) : { nivel: '-', sintese: '-' };
+      html += `<tr><td style="font-weight: bold; color: var(--color-burgundy); white-space: nowrap;">${cls.nivel}</td><td>${cls.sintese}</td></tr>`;
+    });
+    
+    html += '</tbody></table>';
+    content.innerHTML = html;
+  }
+
+  if (btn && modal && closeBtn) {
+    btn.addEventListener('click', () => {
+      renderModalContent();
+      modal.classList.add('show');
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('show');
+    });
+
+    tabPort.addEventListener('click', () => {
+      currentTab = 'port';
+      tabPort.classList.add('active');
+      tabMat.classList.remove('active');
+      renderModalContent();
+    });
+
+    tabMat.addEventListener('click', () => {
+      currentTab = 'mat';
+      tabMat.classList.add('active');
+      tabPort.classList.remove('active');
+      renderModalContent();
+    });
+  }
+});
