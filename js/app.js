@@ -137,7 +137,11 @@ function renderMunicipioView() {
             <tr>
               <th>Ano</th>
               <th>Português (SAEB)</th>
+              <th>Nível Port.</th>
+              <th>Síntese Port.</th>
               <th>Matemática (SAEB)</th>
+              <th>Nível Mat.</th>
+              <th>Síntese Mat.</th>
               <th>IDEB</th>
               <th>Aprovação</th>
             </tr>
